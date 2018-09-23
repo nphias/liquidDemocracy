@@ -1,5 +1,5 @@
 {
-  "name": "messageboard",
+  "name": "liquiddemocracy",
   "version": "0.0.0",
   "scripts": {
     "hc:start": "tsc && hcdev --debug web",

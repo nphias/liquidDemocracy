@@ -1,4 +1,5 @@
-<h1>Welcome to Liquid Democracy</h1>
+<h1>dCider</h1>
+<h3>Sober decision making</h3>
 <div>
   Current Proposals:
 <table class='table' *ngIf="proposals">
@@ -15,7 +16,7 @@
     <tr *ngFor="let p of proposals">
       <td>{{ p.timestamp }}</td>
       <td>{{ p.title }}</td>
-      <td>{{ p.hash }}</td>
+      <td><a href="/details/{{ p.hash }}">details</a></td>
       <td>{{ p.createdby }}</td>
       <td>{{ p.votes }}</td>
     </tr>
@@ -27,7 +28,13 @@
   </div> -->
 </div>
 <p>
-refresh proposals: <button type="submit" (click)="getAllProposals()">refresh</button>
+refresh proposals: <button type="submit" (click)="getAllProposals()">refresh</button><br>
+Delegate my voting power: <button type="submit" (click)="delegate()">Delegate</button>
+<select id="title" name="title">
+  <option value="" selected>Roberto - QmRMU2EujWN7j4tYNSLVxtH3UfSFhTj4TtZuvTGQg1me4D</option>
+  <option value="" selected>Thomas - Qm34MU2EujWN7j4tYNSLVxtH3UfSFhTj4TtZuvTGQg1me4D</option>
+  <option value="" selected>Max - QmRMU2EujW2345rttYNSLVxtH3UfSFhTj4TtZuvTGQg1me4D</option>
+</select>
 </p>
 <p>Create a Proposal:
 <p>Title:<input type="text" [(ngModel)]="newproposal.title"><br>
