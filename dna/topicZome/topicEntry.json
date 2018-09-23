@@ -1,0 +1,13 @@
+{
+	"title": "topicEntry Schema",
+	"type": "object",
+	"properties": {
+		"title": {
+			"type": "string"
+		},
+		"timestamp": {
+			"type": "string"
+		}
+	},
+    "required": ["title", "timestamp"]
+}

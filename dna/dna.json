@@ -1,0 +1,75 @@
+{
+    "Version": 1,
+    "UUID": "8b1fdde7-2ece-11e8-93f1-dca904730e91",
+    "Name": "holoComments",
+    "Properties": {
+        "description": "distributed commenting application",
+        "language": "en"
+    },
+    "PropertiesSchemaFile": "properties_schema.json",
+    "RequiresVersion": 23,
+    "DHTConfig": {
+        "HashType": "sha2-256"
+    },
+    "Zomes": [
+        {
+            "Name": "topicZome",
+            "Description": "provide a topic zome",
+            "CodeFile": "topicZome.js",
+            "RibosomeType": "js",
+            "BridgeFuncs": null,
+            "BridgeTo": "",
+            "Config": null,
+            "Entries": [
+                {
+                    "Name": "topicEntry",
+                    "DataFormat": "json",
+                    "Schema": "",
+                    "SchemaFile": "topicEntry.json",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "collection",
+                    "DataFormat": "json",
+                    "Schema": "",
+                    "SchemaFile": "collection.json",
+                    "Sharing": "public"
+                }, {
+                    "name": "topicLink",
+                    "DataFormat": "links"
+                }
+                , {
+                    "name": "directoryLink",
+                    "DataFormat": "links"
+                }
+            ],
+            "Functions": [
+                {
+                    "Name": "topicEntryCreate",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "topicGetEntry",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "topicGetCollection",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getUsers",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getTopicDirectory",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                }
+            ]
+        }
+    ]
+}

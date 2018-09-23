@@ -1,0 +1,41 @@
+<h1>Welcome to Liquid Democracy</h1>
+<div>
+  Current Proposals:
+<table class='table' *ngIf="proposals">
+  <thead>
+    <tr >
+      <th>Date</th>
+      <th>Title</th>
+      <th>Details</th>
+      <th>created by</th>
+      <th>votes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of proposals">
+      <td>{{ p.timestamp }}</td>
+      <td>{{ p.title }}</td>
+      <td>{{ p.content }}</td>
+      <td>{{ p.hash }}</td>
+      <td>{{ p.votes }}</td>
+    </tr>
+  </tbody>
+</table>
+  <!--<div *ngFor="let t of posts; let i=index"> 
+
+    {{i + 1}} - {{t.title}} {{t.timestamp}} {{sub|json}}
+  </div> -->
+</div>
+<p>
+refresh proposals: <button type="submit" (click)="getAllProposals()">refresh</button>
+</p>
+<p>Create a Proposal:
+<p>Title:<input type="text" [(ngModel)]="newproposal.title"><br>
+Details: <textarea name="comment" [(ngModel)]="newproposal.content">Enter details here...</textarea><br>
+option 1: <input type="text" [(ngModel)]="newproposal.options[0]"><br>
+option 2: <input type="text" [(ngModel)]="newproposal.options[1]"><br>
+option 3: <input type="text" [(ngModel)]="newproposal.options[2]"><br>
+option 4: <input type="text" [(ngModel)]="newproposal.options[3]"><br>
+
+<button type="submit" (click)="createProposal()">Create</button>
+</p>

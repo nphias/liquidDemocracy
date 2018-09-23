@@ -1,0 +1,8 @@
+{
+  "/fn/*": {
+    "target": "http://localhost:4141/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}
