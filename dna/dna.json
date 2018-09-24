@@ -79,6 +79,11 @@
                     "Name": "vote",
                     "CallingType": "json",
                     "Exposure": "public"
+                },
+                {
+                    "Name": "countVotes",
+                    "CallingType": "json",
+                    "Exposure": "public"
                 }
             ]
         }

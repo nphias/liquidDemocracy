@@ -87,6 +87,19 @@ const vote = (params: {
     };
 }
 
+function countVotes (params: {
+    hash: string
+}) {
+    const res = {}
+    const votes = getLinks(params.hash, '', { Load: true });
+
+    votes
+        .map((vote) => Number(vote.Tag))
+        .forEach(x => res[x] = (res[x] || 0) + 1)
+
+    return res
+}
+
 const validateCommit = (entryName, entry, header, pkg, sources) => {
     switch (entryName) {
         case "topicEntry":
