@@ -8,9 +8,7 @@ const genesis = () => {
     return true;
 };
 
-const getMe = () => {
-    return App.Key.Hash
-}
+const getMe = () => App.Key.Hash
 
 const topicGetEntry = (hash) => {
     const topic = {...get(hash)};
@@ -20,21 +18,15 @@ const topicGetEntry = (hash) => {
     return topic;
 }
 
-const getUsers = () => {
-    var userList = getLinks(App.DNA.Hash, 'has user', { Load: true });
-    //debug(userList);
-    return userList
-}
+const getUsers = () => getLinks(App.DNA.Hash, 'has user', { Load: true });
 
-const topicGetCollection = (userhash) => {
-    let collectionList = getLinks(userhash, 'has topics', { Load: true })
-        .map(i => {
-            i.Entry.votes = countVotes({hash: i.Hash})
+const addVotesToLinks = (i) => {
+    i.Entry.votes = countVotes({hash: i.Hash})
 
-            return i
-        })
-    return collectionList
+    return i
 }
+const topicGetCollection = userhash => getLinks(userhash, 'has topics', { Load: true })
+    .map(addVotesToLinks)
 
 const topicEntryCreate = (topic) => {
     const hash = commit('topicEntry', topic);
