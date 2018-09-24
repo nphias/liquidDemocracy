@@ -8,6 +8,10 @@ const genesis = () => {
     return true;
 };
 
+const getMe = () => {
+    return App.Key.Hash
+}
+
 const topicGetEntry = (hash) => {
     const topic = get(hash);
     return topic;
@@ -40,6 +44,48 @@ const getTopicDirectory = () => {
     return directory
 }
 
+
+const hasVoted = (proposalHash) => {
+    const votes = getLinks(proposalHash, '', { Load: true })
+
+    const myVote = votes.filter(vote => vote.Hash === getMe())
+
+    if (myVote.length === 0)
+        return false
+    else
+        return true
+}
+
+const vote = (params: {
+    proposalHash: string,
+    value: number
+}) => {
+    const proposal = topicGetEntry(params.proposalHash)
+
+    // If the provided choice is out of bound
+    if (value >= proposal.values.length)
+        return false
+
+    if (hasVoted(params.proposalHash))
+        return false
+
+    const vote = commit('Vote', { Links: [ {
+        Base: params.proposalHash,
+        Link: getMe(),
+        tag: params.value
+    } ]})
+
+    const voteBacklink = commit('Vote', { Links: [ {
+        Base: getMe(),
+        Link: params.proposalHash,
+        tag: params.value
+    } ]})
+
+    return {
+        voteHash: vote,
+        voteBacklinkHash: voteBacklink
+    };
+}
 
 const validateCommit = (entryName, entry, header, pkg, sources) => {
     switch (entryName) {

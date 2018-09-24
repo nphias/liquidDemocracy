@@ -68,6 +68,11 @@
                     "Name": "getTopicDirectory",
                     "CallingType": "json",
                     "Exposure": "public"
+                },
+                {
+                    "Name": "vote",
+                    "CallingType": "json",
+                    "Exposure": "public"
                 }
             ]
         }
