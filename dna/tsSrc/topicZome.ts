@@ -30,6 +30,7 @@ const topicGetCollection = (userhash) => {
     //debug(userhash)
     var collectionList = getLinks(userhash, 'has topics', { Load: true }).map(i => {
         // @ts-ignore
+        console.log(i)
         i.Entry.votes = countVotes(i.Hash)
 
         return i
