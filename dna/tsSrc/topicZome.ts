@@ -13,7 +13,10 @@ const getMe = () => {
 }
 
 const topicGetEntry = (hash) => {
-    const topic = get(hash);
+    const topic = {...get(hash)};
+
+    topic.votes = countVotes(hash)
+
     return topic;
 }
 
@@ -62,23 +65,22 @@ const vote = (params: {
 }) => {
     const proposal = topicGetEntry(params.proposalHash)
 
+    if (hasVoted(params.proposalHash))
+        return false
     // If the provided choice is out of bound
     if (params.value >= proposal.values.length)
-        return false
-
-    if (hasVoted(params.proposalHash))
         return false
 
     const vote = commit('vote', { Links: [ {
         Base: params.proposalHash,
         Link: getMe(),
-        tag: params.value
+        Tag: params.value
     } ]})
 
     const voteBacklink = commit('vote', { Links: [ {
         Base: getMe(),
         Link: params.proposalHash,
-        tag: params.value
+        Tag: params.value
     } ]})
 
     return {
@@ -87,9 +89,48 @@ const vote = (params: {
     };
 }
 
-function countVotes (params: {
+const removeDelegations = (params: { targetHash: string }) => {
+    const delegations = getLinks(params.targetHash, 'delegation')
+
+    if (delegations.length === 0)
+        return false
+
+    const delegationsRes = delegations.map(x => ({
+        Base: x.Source,
+        Link: x.Hash,
+        LinkAction: HC.LinkAction.Del
+    }))
+
+    // Create array of backlinks
+    const delegationBacklinksRes = delegationsRes.map(x => ({
+        ...x,
+        Base: x.Link,
+        Link: x.Base
+    }))
+
+    commit('delegate', delegationsRes)
+    commit('delegateBacklink', delegationBacklinksRes)
+}
+
+const delegate = (params: { targetHash: string}) => {
+    removeDelegations(params)
+
+    commit('delegate', { Links: [ {
+        Base: getMe(),
+        Link: params.targetHash,
+        Tag: 'delegate'
+    } ]})
+
+    commit('delegate', { Links: [ {
+            Base: getMe(),
+            Link: params.targetHash,
+            Tag: 'delegateBacklink'
+    } ]})
+}
+
+const countVotes = (params: {
     hash: string
-}) {
+}) => {
     const res = {}
     const votes = getLinks(params.hash, '', { Load: true });
 
