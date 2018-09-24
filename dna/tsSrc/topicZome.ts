@@ -15,7 +15,7 @@ const getMe = () => {
 const topicGetEntry = (hash) => {
     const topic = {...get(hash)};
 
-    topic.votes = countVotes(hash)
+    topic.votes = countVotes({hash})
 
     return topic;
 }
