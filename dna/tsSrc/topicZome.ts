@@ -27,15 +27,12 @@ const getUsers = () => {
 }
 
 const topicGetCollection = (userhash) => {
-    //debug(userhash)
-    var collectionList = getLinks(userhash, 'has topics', { Load: true }).map(i => {
-        console.log(i)
-        // @ts-ignore
-        i.Entry.votes = countVotes(i.Hash)
+    let collectionList = getLinks(userhash, 'has topics', { Load: true })
+        .map(i => {
+            i.Entry.votes = countVotes({hash: i.Hash})
 
-        return i
-    })
-   // debug(collectionList);
+            return i
+        })
     return collectionList
 }
 
