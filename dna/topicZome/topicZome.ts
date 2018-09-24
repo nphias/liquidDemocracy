@@ -69,13 +69,13 @@ const vote = (params: {
     if (hasVoted(params.proposalHash))
         return false
 
-    const vote = commit('Vote', { Links: [ {
+    const vote = commit('vote', { Links: [ {
         Base: params.proposalHash,
         Link: getMe(),
         tag: params.value
     } ]})
 
-    const voteBacklink = commit('Vote', { Links: [ {
+    const voteBacklink = commit('vote', { Links: [ {
         Base: getMe(),
         Link: params.proposalHash,
         tag: params.value

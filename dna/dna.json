@@ -41,7 +41,13 @@
                 , {
                     "name": "directoryLink",
                     "DataFormat": "links"
-                }
+                },
+                {
+                    "Name": "vote",
+                    "Required": true,
+                    "DataFormat": "links",
+                    "Sharing": "public"
+                },
             ],
             "Functions": [
                 {
