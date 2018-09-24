@@ -41,5 +41,9 @@ export class HoloService {
   getProposals() {
     return this._http.post('/fn/topicZome/topicsGetAll', JSON.stringify({})).pipe(map(res => res.json()));
   }
+  vote(proposalHash:string, value:number){
+    return this._http.post('/fn/topicZome/vote', JSON.stringify({proposalHash,value})).pipe(map(res => res.json()));
+
+  }
 
 }

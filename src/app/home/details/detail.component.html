@@ -1,3 +1,23 @@
-<h2>this page should show more detail on a specific proposal.. referenced by dna hash in the URL
-  also voting and delegate options 
-</h2>
+<h1>dCider</h1>
+<h3>Sober decision making</h3>
+<div>
+<table class='table' *ngIf="p">
+  <thead>
+    <tr >
+      <th>Proposal</th> 
+      <th>Summary</th>
+      <th>options</th>
+      <th>vote option</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let o of p.options; let i = index">
+      <td rowspan="optionCount">{{ p.timestamp }} {{ p.title }}</td>
+      <td rowspan="optionCount">{{ p.content }}</td>
+      <td >{{ o }}</td>
+      <td><button type="submit" (click)="vote(i)">vote</button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>

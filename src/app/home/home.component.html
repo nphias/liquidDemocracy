@@ -16,7 +16,7 @@
     <tr *ngFor="let p of proposals">
       <td>{{ p.timestamp }}</td>
       <td>{{ p.title }}</td>
-      <td><a href="/details/{{ p.hash }}">details</a></td>
+      <td><a routerLink="/details/{{ p.hash }}">details</a></td>
       <td>{{ p.createdby }}</td>
       <td>{{ p.votes }}</td>
     </tr>

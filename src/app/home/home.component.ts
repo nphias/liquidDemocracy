@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
   }
   /* aggregates posts of each user into array */
   getProposalByUser(hash:string) {
+    this.proposals = []
     this._holoService.getProposalsByUser(hash).subscribe(res => {
       for (const r of res) {
         var p = new Proposal() 
@@ -37,6 +38,7 @@ export class HomeComponent implements OnInit {
         p.content = r.Entry.content
         p.timestamp = r.Entry.timestamp
         p.createdby = hash
+        p.votes = this._holoService.getVoteCount
         if(r.Entry.options)
           p.options = r.Entry.options
         this.proposals.push(p)

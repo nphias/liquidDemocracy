@@ -6,13 +6,15 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { DetailComponent } from './home/details/detail.component';
 import { appRoutes } from './app.routes';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    DetailComponent
   ],
   imports: [
     RouterModule.forRoot(
