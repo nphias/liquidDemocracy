@@ -35,9 +35,6 @@ const topicGetCollection = (userhash) => {
         return i
     })
    // debug(collectionList);
-
-    collectionList
-
     return collectionList
 }
 
