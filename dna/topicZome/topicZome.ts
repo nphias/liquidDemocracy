@@ -63,7 +63,7 @@ const vote = (params: {
     const proposal = topicGetEntry(params.proposalHash)
 
     // If the provided choice is out of bound
-    if (value >= proposal.values.length)
+    if (params.value >= proposal.values.length)
         return false
 
     if (hasVoted(params.proposalHash))
