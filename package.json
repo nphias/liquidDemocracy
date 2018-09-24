@@ -2,7 +2,7 @@
   "name": "liquiddemocracy",
   "version": "0.0.0",
   "scripts": {
-    "hc:start": "tsc && hcdev --debug web",
+    "hc:start": "tsc -p ./dna/ && hcdev --debug web",
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
     "startall": "npm run hc:start && npm run start",
