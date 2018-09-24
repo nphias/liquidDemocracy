@@ -9,10 +9,8 @@ import { Proposal } from '../models/proposal';
 })
 export class HomeComponent implements OnInit {
 
-  //hash: string;
   newproposal: Proposal = new Proposal;
-  viewingProposal: Proposal;
-  //userdata: any
+  //viewingProposal: Proposal;
   proposals: Array<Proposal> = [];
 
   constructor(private _holoService: HoloService) { }
@@ -64,9 +62,9 @@ export class HomeComponent implements OnInit {
     }, err => console.log(err));
   }
 
-  orderPostsBylikes(){} //TODO filter
+  orderProposalsBylikes(){} //TODO filter
 
-  orderPostsByCreation(){} //default filter - newest first
+  orderProposalsByCreation(){} //TODO default filter - newest first
 
   /*find() {
     console.log(this.hash);
