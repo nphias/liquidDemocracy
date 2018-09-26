@@ -1,15 +1,11 @@
 {
   "name": "liquiddemocracy",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
-    "hc:start": "tsc -p ./dna/ && hcdev --debug web",
+    "hc:start": "tsc -p ./dna_ts/ && hcdev --debug web",
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
-    "startall": "npm run hc:start && npm run start",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "build": "ng build"
   },
   "private": true,
   "dependencies": {

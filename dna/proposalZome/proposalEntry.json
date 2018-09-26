@@ -1,0 +1,20 @@
+{
+	"title": "proposalEntry Schema",
+	"type": "object",
+	"properties": {
+		"title": {
+			"type": "string"
+		},
+		"timestamp": {
+			"type": "string"
+		},
+		"values": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"examples": ["yes", "no"]
+			}
+		}
+	},
+    "required": ["title", "timestamp"]
+}

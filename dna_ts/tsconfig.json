@@ -2,8 +2,8 @@
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
-    "outDir": "./topicZome",
-    "rootDir": "./tsSrc",
+    "outDir": "../dna/proposalZome",
+    //"rootDir": "./dna_ts",
     "noImplicitAny": false,
     "typeRoots": [
       "node_modules/@types",

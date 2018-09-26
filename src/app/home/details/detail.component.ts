@@ -30,11 +30,15 @@ import { Proposal } from '../../models/proposal';
     getProposal(hash:string){
         this._holoService.getProposal(hash).subscribe(res => {
           this.p = res
+          this.p.hash = hash
           this.optionCount = res.options.length
       })
     }
 
     vote(option:number){
-      this._holoService.vote(this.p.hash,option)
+      console.log(this.p.hash)
+      this._holoService.vote(this.p.hash,option.toString()).subscribe(res =>{
+        console.log(res)
+      })    
     }
   }

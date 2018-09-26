@@ -1,9 +1,9 @@
 {
     "Version": 1,
     "UUID": "8b1fdde7-2ece-11e8-93f1-dca904730e91",
-    "Name": "holoComments",
+    "Name": "dCider",
     "Properties": {
-        "description": "distributed commenting application",
+        "description": "Liquid Democracy application",
         "language": "en"
     },
     "PropertiesSchemaFile": "properties_schema.json",
@@ -13,19 +13,19 @@
     },
     "Zomes": [
         {
-            "Name": "topicZome",
-            "Description": "provide a topic zome",
-            "CodeFile": "topicZome.js",
+            "Name": "proposalZome",
+            "Description": "provide a proposal zome",
+            "CodeFile": "proposalZome.js",
             "RibosomeType": "js",
             "BridgeFuncs": null,
             "BridgeTo": "",
             "Config": null,
             "Entries": [
                 {
-                    "Name": "topicEntry",
+                    "Name": "proposalEntry",
                     "DataFormat": "json",
                     "Schema": "",
-                    "SchemaFile": "topicEntry.json",
+                    "SchemaFile": "proposalEntry.json",
                     "Sharing": "public"
                 },
                 {
@@ -35,7 +35,7 @@
                     "SchemaFile": "collection.json",
                     "Sharing": "public"
                 }, {
-                    "name": "topicLink",
+                    "name": "proposalLink",
                     "DataFormat": "links"
                 }
                 , {
@@ -43,7 +43,7 @@
                     "DataFormat": "links"
                 },
                 {
-                    "Name": "vote",
+                    "Name": "voteLink",
                     "Required": true,
                     "DataFormat": "links",
                     "Sharing": "public"
@@ -57,17 +57,17 @@
             ],
             "Functions": [
                 {
-                    "Name": "topicEntryCreate",
+                    "Name": "proposalEntryCreate",
                     "CallingType": "json",
                     "Exposure": "public"
                 },
                 {
-                    "Name": "topicGetEntry",
+                    "Name": "proposalGetEntry",
                     "CallingType": "json",
                     "Exposure": "public"
                 },
                 {
-                    "Name": "topicGetCollection",
+                    "Name": "proposalGetCollection",
                     "CallingType": "json",
                     "Exposure": "public"
                 },
@@ -83,6 +83,11 @@
                 },
                 {
                     "Name": "vote",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getVotes",
                     "CallingType": "json",
                     "Exposure": "public"
                 },

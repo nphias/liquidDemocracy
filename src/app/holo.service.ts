@@ -24,26 +24,29 @@ export class HoloService {
   constructor(private _http: Http) { }
 
   createProposal(post: Proposal) {
-    return this._http.post('/fn/topicZome/topicEntryCreate', post).pipe(map(res => res.json()));
+    return this._http.post('/fn/proposalZome/proposalEntryCreate', post).pipe(map(res => res.json()));
   }
   getProposalsByUser(hash: string) {
-    return this._http.post('/fn/topicZome/topicGetCollection', JSON.stringify(hash)).pipe(map(res => res.json()));  
+    return this._http.post('/fn/proposalZome/proposalGetCollection', JSON.stringify(hash)).pipe(map(res => res.json()));  
   }
 
   getUsers() {
-    return this._http.post('/fn/topicZome/getUsers', JSON.stringify({})).pipe(map(res => res.json()));  
+    return this._http.post('/fn/proposalZome/getUsers', JSON.stringify({})).pipe(map(res => res.json()));  
   }
 
   getProposal(hash: string) {
-    return this._http.post('/fn/topicZome/topicGetEntry', JSON.stringify(hash)).pipe(map(res => res.json()));
+    return this._http.post('/fn/proposalZome/proposalGetEntry', JSON.stringify(hash)).pipe(map(res => res.json()));
   }
 
   getProposals() {
-    return this._http.post('/fn/topicZome/topicsGetAll', JSON.stringify({})).pipe(map(res => res.json()));
+    return this._http.post('/fn/proposalZome/proposalGetAll', JSON.stringify({})).pipe(map(res => res.json()));
   }
-  vote(proposalHash:string, value:number){
-    return this._http.post('/fn/topicZome/vote', JSON.stringify({proposalHash,value})).pipe(map(res => res.json()));
+  vote(proposalHash:string, option:string){
+    return this._http.post('/fn/proposalZome/vote', JSON.stringify({proposalHash,option})).pipe(map(res => res.json()));
+  }
 
+  getVotes(proposalHash:string){
+    return this._http.post('/fn/proposalZome/getVotes', JSON.stringify(proposalHash)).pipe(map(res => res.json()));
   }
 
 }

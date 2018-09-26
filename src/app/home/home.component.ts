@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
     this._holoService.getUsers().subscribe(res => {
       for (var user of res){
         this.getProposalByUser(user.Hash)
-        console.debug(user)
       }
     }, err => console.error(err));
   }
@@ -36,9 +35,11 @@ export class HomeComponent implements OnInit {
         p.hash = r.Hash
         p.title = r.Entry.title
         p.content = r.Entry.content
+        this._holoService.getVotes(r.Hash).subscribe(res =>{
+          p.votes = res.length
+        })
         p.timestamp = r.Entry.timestamp
         p.createdby = hash
-        p.votes = this._holoService.getVoteCount
         if(r.Entry.options)
           p.options = r.Entry.options
         this.proposals.push(p)
@@ -60,7 +61,6 @@ export class HomeComponent implements OnInit {
     this._holoService.createProposal(newpro).subscribe(res => {
       newpro.hash = res;
       this.proposals.push(newpro)
-      console.log("created")
     }, err => console.log(err));
   }
 
