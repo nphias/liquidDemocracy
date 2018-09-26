@@ -11,11 +11,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let o of p.options; let i = index">
-      <td rowspan="optionCount">{{ p.timestamp }} {{ p.title }}</td>
+    <tr>
+      <td rowspan="optionCount">{{ p.timestamp }}<br/> {{ p.title }}</td>
       <td rowspan="optionCount">{{ p.content }}</td>
-      <td >{{ o }}</td>
-      <td><button type="submit" (click)="vote(i)">vote</button></td>
+      <td><ul><li *ngFor="let o of p.options">{{ o }}<hr></li></ul></td>
+      <td><ul><li *ngFor="let o of p.options; let i = index">
+        <button type="submit" (click)="vote(i)">vote</button><hr></li></ul>
+      </td>
     </tr>
   </tbody>
 </table>

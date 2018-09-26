@@ -8,3 +8,8 @@ tr,td,th
 {
     border: 1px solid black; 
 }
+
+ul,li { list-style-type: none;
+    list-style-position:inside;
+    margin:0;
+    padding:0; }
