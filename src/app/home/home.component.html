@@ -1,3 +1,4 @@
+<div style="text-align:center">
 <h1><a routerLink="/">dCider</a></h1>
 <h3>Sober decision making</h3>
 <div>
@@ -24,8 +25,8 @@
 </table>
 </div>
 <p>
-refresh proposals: <button type="submit" (click)="getAllProposals()">refresh</button><br>
-Delegate my voting power: <button type="submit" (click)="delegate()">Delegate</button>
+refresh proposals: <button type="submit" (click)="getAllProposals()">refresh</button><br><br>
+Delegate my voting power for all proposals: <button type="submit" (click)="delegate()">Delegate</button>
 <select id="title" name="title">
   <option value="" selected>Roberto - QmRMU2EujWN7j4tYNSLVxtH3UfSFhTj4TtZuvTGQg1me4D</option>
   <option value="" selected>Thomas - Qm34MU2EujWN7j4tYNSLVxtH3UfSFhTj4TtZuvTGQg1me4D</option>
@@ -34,7 +35,7 @@ Delegate my voting power: <button type="submit" (click)="delegate()">Delegate</b
 </select>
 </p>
 <p>Create a Proposal:
-<p>Title:<input type="text" [(ngModel)]="newproposal.title"><br>
+<p>Title:<input type="text" [(ngModel)]="newproposal.title"><br><br>
 Details: <textarea name="comment" [(ngModel)]="newproposal.content">Enter details here...</textarea><br>
 option 1: <input type="text" [(ngModel)]="newproposal.options[0]"><br>
 option 2: <input type="text" [(ngModel)]="newproposal.options[1]"><br>
@@ -43,3 +44,4 @@ option 4: <input type="text" [(ngModel)]="newproposal.options[3]"><br>
 
 <button type="submit" (click)="createProposal()">Create</button>
 </p>
+</div>

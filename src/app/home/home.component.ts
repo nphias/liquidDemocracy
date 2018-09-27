@@ -1,3 +1,5 @@
+/* nphias  2018 - Amsterdam Hackathon */
+
 import { Component, OnInit } from '@angular/core';
 import { HoloService } from '../holo.service';
 import { Proposal } from '../models/proposal';
@@ -10,8 +12,7 @@ import { Proposal } from '../models/proposal';
 export class HomeComponent implements OnInit {
 
   newproposal: Proposal = new Proposal;
-  //viewingProposal: Proposal;
-  proposals: Array<Proposal> = [];
+  proposals: Proposal[] = [];
 
   constructor(private _holoService: HoloService) { }
 
@@ -20,6 +21,7 @@ export class HomeComponent implements OnInit {
   }
   /* find all posts for each registered user */
   getAllProposals() {
+    this.proposals = []
     this._holoService.getUsers().subscribe(res => {
       for (var user of res){
         this.getProposalByUser(user.Hash)
@@ -28,16 +30,15 @@ export class HomeComponent implements OnInit {
   }
   /* aggregates posts of each user into array */
   getProposalByUser(hash:string) {
-    this.proposals = []
     this._holoService.getProposalsByUser(hash).subscribe(res => {
       for (const r of res) {
+        if (this.proposals.some(p => p.hash === r.Hash)) //avoid duplicates
+          continue
         var p = new Proposal() 
         p.hash = r.Hash
         p.title = r.Entry.title
         p.content = r.Entry.content
-        this._holoService.getVotes(r.Hash).subscribe(res =>{
-          p.votes = res.length
-        })
+        p.votes = r.Entry.votes
         p.timestamp = r.Entry.timestamp
         p.createdby = hash
         if(r.Entry.options)
@@ -57,23 +58,14 @@ export class HomeComponent implements OnInit {
       timestamp: (new Date).toDateString(),
       createdby: ""
     };
-   // this.name = '';
     this._holoService.createProposal(newpro).subscribe(res => {
       newpro.hash = res;
       this.proposals.push(newpro)
     }, err => console.log(err));
   }
 
-  orderProposalsBylikes(){} //TODO filter
+  orderProposalsByVotes(){} //TODO filter
 
   orderProposalsByCreation(){} //TODO default filter - newest first
-
-  /*find() {
-    console.log(this.hash);
-    this._holoService.getTopic(this.hash).subscribe(res => {
-      this.foundTopic = res;
-      console.log(this.foundTopic);
-    });
-  }*/
 
 }

@@ -1,7 +1,7 @@
+/* nphias 2018 - Amsterdam Hackathon */
+
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-
 import { HoloService } from '../../holo.service';
 import { Proposal } from '../../models/proposal';
 
@@ -14,17 +14,17 @@ import { Proposal } from '../../models/proposal';
   {
     p: Proposal
     optionCount: number
+    optionVotes: [{}] = [{}]
 
     constructor(private _holoService: HoloService, private route: ActivatedRoute) { }
 
     ngOnInit() {
       this.route.params.subscribe(params => {
         this.getProposal(params['id']) //log the value of id
+        this._holoService.getVoteStats(params['id']).subscribe(res => {
+          this.optionVotes = res
+        })
       });
-    }
-    
-    ngAfterViewInit(){
-      
     }
 
     getProposal(hash:string){
@@ -37,7 +37,7 @@ import { Proposal } from '../../models/proposal';
 
     vote(option:number){
       console.log(this.p.hash)
-      this._holoService.vote(this.p.hash,option.toString()).subscribe(res =>{
+      this._holoService.vote(this.p.hash,option).subscribe(res =>{
         console.log(res)
       })    
     }

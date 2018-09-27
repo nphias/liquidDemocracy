@@ -1,25 +1,38 @@
-<h1><a routerLink="/">dCider</a></h1>
-<h3>Sober decision making</h3>
-<div>
-<table class='table' *ngIf="p">
-  <thead>
-    <tr >
-      <th>Proposal</th> 
-      <th>Summary</th>
-      <th>options</th>
-      <th>vote option</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td rowspan="optionCount">{{ p.timestamp }}<br/> {{ p.title }}</td>
-      <td rowspan="optionCount">{{ p.content }}</td>
-      <td><ul><li *ngFor="let o of p.options">{{ o }}<hr></li></ul></td>
-      <td><ul><li *ngFor="let o of p.options; let i = index">
-        <button type="submit" (click)="vote(i)">vote</button><hr></li></ul>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div style="text-align:center">
+  <h1><a routerLink="/">dCider</a></h1>
+  <h3>Sober decision making</h3>
+  <div *ngIf="p">
+    <table class='table'>
+      <thead>
+        <tr >
+          <th>Proposal</th> 
+          <th>Description</th>
+          <th>options</th>
+          <th>vote option</th>
+          <th>Delegate my vote to</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="optionCount">{{ p.timestamp }}<br/> {{ p.title }}</td>
+          <td rowspan="optionCount">{{ p.content }}</td>
+          <td><ul><li *ngFor="let o of p.options">{{ o }}<hr></li></ul></td>
+          <td><ul><li *ngFor="let o of p.options; let i = index">
+            <button type="submit" (click)="vote(i)">vote</button><hr></li></ul>
+          </td>
+          <td><select id="title" name="title">
+              <option value="" selected>----</option>
+              <option value="Roberto">Roberto</option>
+              <option value="Thomas">Thomas</option>
+              <option value="Max">Max </option>
+              <option value="Fred">Fred </option>
+            </select></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <div class="inline" *ngIf="optionVotes.length > 0">
+    voting tally: <ul><li *ngFor="let o of p.options; let i = index">{{ o }}:{{optionVotes[i]}}</li></ul>
+    </div>
+  </div>
 </div>
-<p>

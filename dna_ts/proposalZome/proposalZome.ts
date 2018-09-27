@@ -1,8 +1,8 @@
-/*nphias*/
+/* nphias + maxamillion 2018 - Amsterdam Hackathon */
 
 const genesis = () => {
     var result = commit('directoryLink', {Links:[
-        {Base: App.DNA.Hash, Link: App.Agent.Hash, Tag: 'has user'},
+        {Base: App.DNA.Hash, Link: App.Key.Hash, Tag: 'has user'},
     ]})
     //debug(result)
     return true;
@@ -12,7 +12,7 @@ const genesis = () => {
 const proposalEntryCreate = (proposal) => {
     const phash = commit('proposalEntry', proposal);
     const collectionHash =  commit('proposalLink', {Links:[
-        {Base: App.Agent.Hash, Link: phash, Tag: 'has proposals'},
+        {Base: App.Key.Hash, Link: phash, Tag: 'has proposals'},
     ]})
     return phash;
 }
@@ -26,18 +26,21 @@ const proposalGetEntry = (proposalhash) => {
 const getUsers = () => {
     var userList = getLinks(App.DNA.Hash, 'has user', { Load: true });
     //debug(userList);
+   // debug(App.Agent.Hash)
+   // debug(App.Key.Hash)
     return userList
 }
 
 const proposalGetCollection = (userhash) => {
     let collectionList = getLinks(userhash, 'has proposals', { Load: true })
     //debug(collectionList)
-    return (collectionList)
+    collectionList.map(p => {p.Entry.votes = getVotes(p.Hash).length})
+    return collectionList
 }
 
-const vote = (params:{proposalHash:string, option:string}) => {  //TODO Add validation
+const vote = (params:{proposalHash:string, option:number}) => {  //TODO Add validation
     const vote = commit('voteLink', {Links:[
-        { Base: params.proposalHash, Link: App.Agent.Hash, Tag: params.option} ]})
+        { Base: params.proposalHash, Link: App.Key.Hash, Tag: params.option.toString()} ]})
         //debug(vote)
     return true
 }
@@ -48,9 +51,11 @@ const getVotes = (proposalhash) => {
     return votes
 }
 
-
-
-
+const getVoteStats = (proposalHash) => {
+    let res = []
+    getVotes(proposalHash).map((vote) => Number(vote.Tag)).forEach(x => res[x] = (res[x] || 0) + 1)
+    return res
+}
 
 
 const getTopicDirectory = () => {
@@ -58,47 +63,16 @@ const getTopicDirectory = () => {
     return directory
 }
 
-const addVotesToLinks = (i) => {
-    i.Entry.votes = countVotes({hash: i.Hash})
-    return i
-}
 const hasVoted = (proposalHash) => {
     const votes = getLinks(proposalHash, '', { Load: true })
 
-    const myVote = votes.filter(vote => vote.Hash === getMe())
+    const myVote = votes.filter(vote => vote.Hash === App.Key.Hash)
 
     if (myVote.length === 0)
         return false
     else
         return true
 }
-
-/*const vote = (params: {proposalHash: string, value: number}) => {
-    const proposal = proposalGetEntry(params.proposalHash)
-
-    if (hasVoted(params.proposalHash))
-        return false
-    // If the provided choice is out of bound
-    if (params.value >= proposal.values.length)
-        return false
-
-    const vote = commit('vote', { Links: [ {
-        Base: params.proposalHash,
-        Link: getMe(),
-        Tag: params.value
-    } ]})
-
-    //const voteBacklink = commit('vote', { Links: [ {
-    //    Base: getMe(),
-     //   Link: params.proposalHash,
-     //   Tag: params.value
-   // } ]})
-    debug(vote)
-    return {
-        voteHash: vote,
-      //  voteBacklinkHash: voteBacklink
-    };
-}*/
 
 const removeDelegations = (params: { targetHash: string }) => {
     const delegations = getLinks(params.targetHash, 'delegation')
@@ -127,34 +101,30 @@ const delegate = (params: { targetHash: string}) => {
     removeDelegations(params)
 
     commit('delegate', { Links: [ {
-        Base: getMe(),
+        Base: App.Key.Hash,
         Link: params.targetHash,
         Tag: 'delegate'
     } ]})
 
     commit('delegate', { Links: [ {
-            Base: getMe(),
+            Base: App.Key.Hash,
             Link: params.targetHash,
             Tag: 'delegateBacklink'
     } ]})
 }
 
 
-const countVotes = (params: {
-    hash: string
-}) => {
-    const res = {}
-    const votes = getLinks(params.hash, '', { Load: true });
-
-    votes
-        .map((vote) => Number(vote.Tag))
-        .forEach(x => res[x] = (res[x] || 0) + 1)
-
-    return res
-}
-
-const getMe = () => {
-    return App.Key.Hash
+const validateVote = (entry) => {
+    let proposalhash = entry.Links[0].Base
+    let voteOption = Number(entry.Links[0].Tag)
+    const proposal = proposalGetEntry(proposalhash)
+    if (hasVoted(proposalhash))
+        return false
+    if (voteOption < 0)
+        return false
+    if (voteOption >= proposal.options.length)
+        return false
+    return true
 }
 
 //validation
@@ -166,8 +136,8 @@ const validateCommit = (entryName, entry, header, pkg, sources) => {
             return true;
         case "proposalLink":
             return true;
-        case "voteLink":
-            return true;
+        case "voteLink": return validateVote(entry)
+           // return true;
         default:
             // invalid entry name
             return false;

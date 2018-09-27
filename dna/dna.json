@@ -87,7 +87,7 @@
                     "Exposure": "public"
                 },
                 {
-                    "Name": "getVotes",
+                    "Name": "getVoteStats",
                     "CallingType": "json",
                     "Exposure": "public"
                 },
