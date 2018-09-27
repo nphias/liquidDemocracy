@@ -21,9 +21,7 @@ import { Proposal } from '../../models/proposal';
     ngOnInit() {
       this.route.params.subscribe(params => {
         this.getProposal(params['id']) //log the value of id
-        this._holoService.getVoteStats(params['id']).subscribe(res => {
-          this.optionVotes = res
-        })
+        this.getVoteStats(params['id'])
       });
     }
 
@@ -35,10 +33,16 @@ import { Proposal } from '../../models/proposal';
       })
     }
 
+    getVoteStats(hash:string){
+      this._holoService.getVoteStats(hash).subscribe(res => {
+        this.optionVotes = res
+      })
+    }
+
     vote(option:number){
-      console.log(this.p.hash)
       this._holoService.vote(this.p.hash,option).subscribe(res =>{
         console.log(res)
+        this.getVoteStats(this.p.hash)
       })    
     }
   }

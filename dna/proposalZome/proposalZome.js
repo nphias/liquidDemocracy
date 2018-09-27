@@ -1,4 +1,4 @@
-/*nphias*/
+/* nphias + maxamillion 2018 - Amsterdam Hackathon */
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -68,32 +68,6 @@ var hasVoted = function (proposalHash) {
     else
         return true;
 };
-/*const vote = (params: {proposalHash: string, value: number}) => {
-    const proposal = proposalGetEntry(params.proposalHash)
-
-    if (hasVoted(params.proposalHash))
-        return false
-    // If the provided choice is out of bound
-    if (params.value >= proposal.values.length)
-        return false
-
-    const vote = commit('vote', { Links: [ {
-        Base: params.proposalHash,
-        Link: getMe(),
-        Tag: params.value
-    } ]})
-
-    //const voteBacklink = commit('vote', { Links: [ {
-    //    Base: getMe(),
-     //   Link: params.proposalHash,
-     //   Tag: params.value
-   // } ]})
-    debug(vote)
-    return {
-        voteHash: vote,
-      //  voteBacklinkHash: voteBacklink
-    };
-}*/
 var removeDelegations = function (params) {
     var delegations = getLinks(params.targetHash, 'delegation');
     if (delegations.length === 0)
@@ -111,26 +85,15 @@ var removeDelegations = function (params) {
 var delegate = function (params) {
     removeDelegations(params);
     commit('delegate', { Links: [{
-                Base: getMe(),
+                Base: App.Key.Hash,
                 Link: params.targetHash,
                 Tag: 'delegate'
             }] });
     commit('delegate', { Links: [{
-                Base: getMe(),
+                Base: App.Key.Hash,
                 Link: params.targetHash,
                 Tag: 'delegateBacklink'
             }] });
-};
-var countVotes = function (params) {
-    var res = {};
-    var votes = getLinks(params.hash, '', { Load: true });
-    votes
-        .map(function (vote) { return Number(vote.Tag); })
-        .forEach(function (x) { return res[x] = (res[x] || 0) + 1; });
-    return res;
-};
-var getMe = function () {
-    return App.Key.Hash;
 };
 var validateVote = function (entry) {
     var proposalhash = entry.Links[0].Base;
@@ -140,10 +103,8 @@ var validateVote = function (entry) {
         return false;
     if (voteOption < 0)
         return false;
-    if (voteOption >= proposal.options.length) {
-        debug(voteOption);
+    if (voteOption >= proposal.options.length)
         return false;
-    }
     return true;
 };
 //validation

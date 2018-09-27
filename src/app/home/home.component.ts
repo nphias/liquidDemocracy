@@ -46,7 +46,6 @@ export class HomeComponent implements OnInit {
         this.proposals.push(p)
       }
     }, err => console.log(err));
-    console.log(this.proposals)
   }
   createProposal() {
      let newpro = {
