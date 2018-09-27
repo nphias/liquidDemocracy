@@ -7,8 +7,8 @@
 tr,td,th 
 {
     border: 1px solid black;
-    margin: 2;
-    padding:2; 
+    margin: 5;
+    padding:5;
 }
 
 ul,li { list-style-type: none;

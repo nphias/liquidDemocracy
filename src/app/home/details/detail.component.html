@@ -32,7 +32,13 @@
     </table>
     <p>
       <div class="inline" *ngIf="optionVotes.length > 0">
-    voting tally: <ul><li *ngFor="let o of p.options; let i = index">{{ o }}:{{optionVotes[i]}}</li></ul>
+    voting tally: 
+    <table>
+      <tr *ngFor="let o of p.options; let i = index">
+        <td>{{ o }}:</td>
+        <td>{{optionVotes[i]}}</td>
+       </tr> 
+       </table>
     </div>
   </div>
 </div>
