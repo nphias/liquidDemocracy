@@ -5,7 +5,10 @@ Delegative Democracy, or liquid democracy, lies between direct and representativ
 source wikipedia
 holochain Dapp
 
+<a href="url"><img src="https://www.addwebsolution.com/sites/default/files/2018-05/Angular_6%20768x540%20png%20%20768%C3%97540%20.png"></a>
+
 npm install (for angular)
 
 npm run hc:start in a terminal
+
 npm run start in another terminal
