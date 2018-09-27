@@ -16,8 +16,8 @@ npm run start in another terminal
 TODO:
 - [x] Create a proposal view
 - [x] Create the voting functionality
-- [ ] Redo the voting functionality to use linked documents rather than link tags
+- [ ] Add User registration and profile (user zome)
+- [ ] Add in Topic Zome to manage topics
 - [ ] Create DAO's which overarch
 - [ ] Add in delegation functionality
 - [ ] Create a pretty UI
-- [ ] Add in validation
