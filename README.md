@@ -12,3 +12,12 @@ npm install (for angular)
 npm run hc:start in a terminal
 
 npm run start in another terminal
+
+TODO:
+- [x] Create a proposal view
+- [x] Create the voting functionality
+- [ ] Redo the voting functionality to use linked documents rather than link tags
+- [ ] Create DAO's which overarch
+- [ ] Add in delegation functionality
+- [ ] Create a pretty UI
+- [ ] Add in validation
